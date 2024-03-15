@@ -1,0 +1,156 @@
+/* App.css */
+
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* App Container */
+.App {
+  text-align: center;
+  padding: 20px;
+}
+
+/* Task Board Layout */
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+/* Task Column Styles */
+.column {
+  flex-basis: 23%;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  animation: fadeInDown 0.5s ease;
+}
+
+.column:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-5px);
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.column h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+/* Task Card Styles */
+.cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  animation: fadeIn 0.5s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card p {
+  margin: 5px 0;
+}
+
+.card button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card button:hover {
+  background-color: #0056b3;
+}
+
+/* Add Task Input */
+.add-card {
+  margin-top: 20px;
+}
+
+.add-card input {
+  padding: 8px;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.add-card button {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-card button:hover {
+  background-color: #218838;
+}
+
+/* Task Status Specific Colors */
+.todo-card {
+  background-color: #ffcccc;
+}
+
+.inProgress-card {
+  background-color: #ffffcc;
+}
+
+.review-card {
+  background-color: #ccccff;
+}
+
+.done-card {
+  background-color: #ccffcc;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .column {
+    flex-basis: 100%;
+    margin-bottom: 20px;
+  }
+}
