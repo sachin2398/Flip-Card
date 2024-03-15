@@ -80,17 +80,54 @@ const App = () => {
     }
   };
 
+  const handleDragStart = (e, taskId) => {
+    e.dataTransfer.setData("taskId", taskId);
+  };
+
+  const handleDrop = (e, targetColumn) => {
+    const taskId = e.dataTransfer.getData("taskId");
+    const sourceColumn = tasks.todo.find(
+      (task) => task.taskId.toString() === taskId
+    )
+      ? "todo"
+      : tasks.inProgress.find((task) => task.taskId.toString() === taskId)
+      ? "inProgress"
+      : tasks.review.find((task) => task.taskId.toString() === taskId)
+      ? "review"
+      : "done";
+
+    if (sourceColumn !== targetColumn) {
+      moveTask(
+        tasks[sourceColumn].findIndex(
+          (task) => task.taskId.toString() === taskId
+        ),
+        sourceColumn,
+        targetColumn
+      );
+    }
+  };
+
+  const allowDrop = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="App">
       <h1>Task Board</h1>
       <div className="board">
-        <div className="column todo">
+        <div
+          className="column todo"
+          onDrop={(e) => handleDrop(e, "todo")}
+          onDragOver={allowDrop}
+        >
           <h2>To Do</h2>
           <div className="cards">
             {tasks.todo.map((task, index) => (
               <div
                 className="card todo-card"
                 key={task.taskId}
+                draggable
+                onDragStart={(e) => handleDragStart(e, task.taskId)}
                 onClick={() => moveTask(index, "todo", "inProgress")}
               >
                 <p>Task: {task.taskName}</p>
@@ -110,13 +147,19 @@ const App = () => {
             </div>
           </div>
         </div>
-        <div className="column in-progress">
+        <div
+          className="column in-progress"
+          onDrop={(e) => handleDrop(e, "inProgress")}
+          onDragOver={allowDrop}
+        >
           <h2>In Progress</h2>
           <div className="cards">
             {tasks.inProgress.map((task, index) => (
               <div
                 className="card inProgress-card"
                 key={task.taskId}
+                draggable
+                onDragStart={(e) => handleDragStart(e, task.taskId)}
                 onClick={() => moveTask(index, "inProgress", "review")}
               >
                 <p>Task: {task.taskName}</p>
@@ -126,13 +169,19 @@ const App = () => {
             ))}
           </div>
         </div>
-        <div className="column review">
+        <div
+          className="column review"
+          onDrop={(e) => handleDrop(e, "review")}
+          onDragOver={allowDrop}
+        >
           <h2>Review</h2>
           <div className="cards">
             {tasks.review.map((task, index) => (
               <div
                 className="card review-card"
                 key={task.taskId}
+                draggable
+                onDragStart={(e) => handleDragStart(e, task.taskId)}
                 onClick={() => moveTask(index, "review", "done")}
               >
                 <p>Task: {task.taskName}</p>
@@ -142,13 +191,19 @@ const App = () => {
             ))}
           </div>
         </div>
-        <div className="column done">
+        <div
+          className="column done"
+          onDrop={(e) => handleDrop(e, "done")}
+          onDragOver={allowDrop}
+        >
           <h2>Done</h2>
           <div className="cards">
             {tasks.done.map((task, index) => (
               <div
                 className="card done-card"
                 key={task.taskId}
+                draggable
+                onDragStart={(e) => handleDragStart(e, task.taskId)}
                 onClick={() => console.log("Click on Done")}
               >
                 <p>Task: {task.taskName}</p>
